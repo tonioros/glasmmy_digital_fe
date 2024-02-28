@@ -1,20 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {LoginComponent} from "./login/login.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LandingComponent} from "./landing/landing.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {NgIconsModule} from "@ng-icons/core";
-import {matAutorenew} from "@ng-icons/material-icons/baseline"
-import {RouterLink} from "@angular/router";
-import {DashboardComponent} from "./dashboard/dashboard.component";
+import {matAutorenew, matDoubleArrow, matMenu} from "@ng-icons/material-icons/baseline"
+import {RouterLink, RouterOutlet} from "@angular/router";
+import {DashboardComponent} from "./main-container/dashboard/dashboard.component";
 import {AgGridAngular} from "ag-grid-angular";
+import {MainContainerComponent} from "./main-container/main-container.component";
+import {MenuComponent} from "./menu/menu.component";
+
 @NgModule({
   declarations: [
     LoginComponent,
     PageNotFoundComponent,
     DashboardComponent,
-    LandingComponent
+    LandingComponent,
+    MainContainerComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
@@ -23,8 +28,11 @@ import {AgGridAngular} from "ag-grid-angular";
     RouterLink,
     NgIconsModule.withIcons({
       matAutorenew,
+      matMenu,
+      matDoubleArrow,
     }),
     AgGridAngular,
+    RouterOutlet,
   ]
 })
 export class PagesModule { }

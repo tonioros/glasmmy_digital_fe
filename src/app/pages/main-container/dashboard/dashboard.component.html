@@ -1,0 +1,69 @@
+<div class="container container-md size-page">
+	<h1 class="mt-5 text-dark">Invitaciones</h1>
+	<div class="mx-md-3 ">
+		<div class="row mt-1 mt-md-3">
+			<h4 class="text-secondary mb-3">Revisa tus diferentes invitaciones</h4>
+			<div class="col-6 col-lg-3 col-xl-2">
+				<div (click)="onFilterChange('TO')" [ngClass]="{'shadow border': activeFilter ==  'TO'}"
+				     class="card p-1 clickable p-md-2 my-2 m-md-0 h-100 todas-card">
+					<div class="card-img-top px-2 py-3">
+						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/todos-inv.png">
+					</div>
+					<div class="card-body px-1 align-content-end">
+						<h4 class="text-dark fw-light">Todos <span class="fw-bold">{{ totalTodos }}</span></h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-3 col-xl-2">
+				<div (click)="onFilterChange('CONF')" [ngClass]="{'shadow border': activeFilter ==  'CONF'}"
+				     class="card p-1 clickable p-md-2 my-2 m-md-0 h-100 confirm-card">
+					<div class="card-img-top px-1 py-4">
+						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/confirmed.png">
+					</div>
+					<div class="card-body px-1 align-content-end">
+						<h4 class="text-dark fw-light">Confirmados <span class="fw-bold">{{ totalConfirmados }}</span></h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-3 col-xl-2 ">
+				<div (click)="onFilterChange('PEND')" [ngClass]="{'shadow border': activeFilter ==  'PEND'}"
+				     class="card p-1 clickable p-md-2 my-2 pending-card m-md-0 h-100">
+					<div class="card-img-top p-3">
+						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/pending.png">
+					</div>
+					<div class="card-body">
+						<h4 class="text-dark fw-light">Pendientes <span class="fw-bold">{{ totalPendientes }}</span></h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-3 col-xl-2 mt-3 mt-md-0">
+				<div (click)="onFilterChange('CANC')" [ngClass]="{'shadow border': activeFilter ==  'CANC'}"
+				     class="card p-1 clickable p-md-2 my-2 rejected-card m-md-0 h-100">
+					<div class="card-img-top p-3">
+						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/rejected.png">
+					</div>
+					<div class="card-body">
+						<h4 class="text-dark fw-light">Cancelados <span class="fw-bold">{{ totalCancelados }}</span></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col-12 my-3">
+				<div class="justify-content-between row">
+					<div class="col">
+						<h4 class="text-secondary">Aca puedes administrar tus invitaciones</h4>
+						<p class="text-secondary">Agrega, cambia, asigna invitados, revisa quien confirmo y quien falta</p>
+					</div>
+					<button class="btn col col-md-3 col-xl-2 m-2 btn-primary" type="button">+ Agregar Invitacion</button>
+				</div>
+				<ag-grid-angular
+					[columnDefs]="colDefs"
+					[rowData]="rowData"
+					class="ag-theme-quartz"
+					style="height: 400px;">
+				</ag-grid-angular>
+			</div>
+		</div>
+	</div>
+</div>

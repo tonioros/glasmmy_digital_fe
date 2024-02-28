@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthorized()) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/us/dashboard']);
     }
   }
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: _ => {
           this.isLoading = false;
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['/us/dashboard']);
         }, error: err => {
           this.errorMessage = err.error.message;
           this.isLoading = false;

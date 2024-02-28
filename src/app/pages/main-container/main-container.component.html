@@ -1,0 +1,12 @@
+<div class='dashboard'>
+	<app-menu [toggleMenu]="toggleMenu"></app-menu>
+</div>
+<div class='dashboard-app'>
+	<header class='dashboard-toolbar row ps-3 py-2 bg-light'>
+		<button (click)="onOpenMenu()" class="menu-toggle btn-clear col-auto row no-gutters">
+			<span class="col">Menu</span> <ng-icon class="w-100 h-100 col" name="matDoubleArrow"></ng-icon>
+		</button>
+		<h5 class="col-auto text-secondary">{{userName}} &#9656; Dashboard</h5>
+	</header>
+	<router-outlet></router-outlet>
+</div>

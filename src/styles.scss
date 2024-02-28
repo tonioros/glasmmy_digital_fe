@@ -3,6 +3,18 @@
 /* Core AG Grid CSS */
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-quartz.css';
+/* Color Theme Swatches in Hex */
+$btn-danger: #fc5b81;
+$btn-warning: #ffbe91;
+$btn-alert: #ece98f;
+$btn-secondary: #8bd0e7;
+$btn-primary: #43a2ef;
+
+$btn-danger-light: rgba(252, 91, 129, 0.8);
+$btn-warning-light: rgba(255, 190, 145, 0.8);
+$btn-alert-light: rgba(236, 233, 143, 0.8);
+$btn-secondary-light: rgba(139, 208, 231, 0.8);
+$btn-primary-light: rgba(67, 162, 239, 0.8);
 
 @keyframes loading {
   0% { transform: rotate(0deg); }
@@ -10,4 +22,32 @@
 }
 .rotate {
   animation: loading 2500ms infinite;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.btn-danger {
+  background-color: $btn-danger !important;
+  border: solid 1px $btn-danger-light !important;
+}
+.btn-warning {
+  background-color: $btn-warning !important;
+  border: solid 1px $btn-warning-light !important;
+}
+.btn-alert {
+  background-color: $btn-alert !important;
+  border: solid 1px $btn-alert-light !important;
+}
+.btn-secondary {
+  background-color: $btn-secondary !important;
+  border: solid 1px $btn-secondary-light !important;
+}
+.btn-primary {
+  background-color: $btn-primary !important;
+  border: solid 1px $btn-primary-light !important;
+}
+.btn-clear {
+  background: none;
+  border: none;
 }

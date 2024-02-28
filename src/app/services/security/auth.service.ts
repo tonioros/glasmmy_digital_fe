@@ -26,7 +26,7 @@ export class AuthService {
             const time = this._user?.last_login.split(" ")[1].split(':') as string[];
             this._lastDateLogin = new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]), parseInt(time[0]), parseInt(time[1]), parseInt(time[2]));
             const diffDays = dateDiffInDays(this._lastDateLogin, new Date());
-            if (diffDays > 10) {
+            if (diffDays > 7) {
                 this.logout();
             }
         }
@@ -61,5 +61,6 @@ export class AuthService {
     public logout() {
         this._user = undefined;
         this.localStorageService.remove(Constants.LS_API_TOKEN);
+        this.localStorageService.remove(Constants.LS_USER);
     }
 }

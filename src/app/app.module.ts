@@ -8,6 +8,7 @@ import {ApiService, AuthService, EncryptService, LocalStorageService} from "./se
 import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./app.routes";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
+import {ErrorHandlerInterceptor} from "./interceptor/error-handler.interceptor";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
     EncryptService,
     ApiService,
     AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
