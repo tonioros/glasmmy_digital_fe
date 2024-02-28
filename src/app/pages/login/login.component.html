@@ -1,0 +1,40 @@
+<div class="row align-content-center justify-content-md-center h-100 h-100">
+	<div class="py-md-5 mr-md-2 col-12 col-md-6 col-lg-5 left-shadow">
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="./assets/img/birthday.jpg" class="rounded-1 d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="./assets/img/wedding.jpg" class="rounded-1 d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="./assets/img/planning.jpg" class="rounded-1 d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="./assets/img/party.jpg" class="rounded-1 d-block w-100" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-md-5 ml-md-2 col-12 col-md-6 col-lg-5 right-shadow">
+		<div class="col-md-8 ">
+			<h2 class="my-3">Login</h2>
+			<p class="text-secondary my-4">Hola!, Por favor ingresa tu token de acceso para ingersar a nuestro genial
+				sistema</p>
+			<form [formGroup]="formGroup" (ngSubmit)="login()" class="mt-4">
+				<label for="userAccessToken" class="my-2 text-secondary">Token de Acceso: </label>
+				<input [formControlName]="'userAccessToken'" id="userAccessToken" class="form-control border">
+				<button class="btn btn-primary btn-lg mt-3 w-100" type="submit" [disabled]="isLoading">
+					<span *ngIf="!isLoading">Ingresar</span>
+					<ng-icon name="matAutorenew" class="w-100 h-100 rotate" *ngIf="isLoading"></ng-icon>
+				</button>
+				<div class="alert alert-danger mt-3" role="alert" *ngIf="errorMessage != ''">
+					<h4>Oops!</h4>
+					<p>{{errorMessage}}</p>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

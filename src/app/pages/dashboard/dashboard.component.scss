@@ -1,0 +1,18 @@
+.confirm-card {
+  background-color: rgba(175, 117, 191, 0.50);
+  .card-img-top {
+    background-color: rgba(175, 117, 191, 0.90);
+  }
+}
+.pending-card {
+  background-color: rgba(167, 225, 241, 0.50);
+  .card-img-top {
+    background-color: rgba(167, 225, 241, 0.90);
+  }
+}
+.rejected-card {
+  background-color: rgba(255, 224, 51, 0.50);
+  .card-img-top {
+    background-color: rgba(255, 224, 51, 0.90);
+  }
+}
