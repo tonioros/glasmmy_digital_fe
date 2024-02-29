@@ -1,8 +1,10 @@
-<div *ngIf="toggleMenu" class="dashboard-nav" style="z-index: 100">
-	<header>
-		<button class="btn-clear text-white menu-toggle" href="#!" type="button"><i class="fas fa-bars"></i></button>
-		<button (click)="onToggleMenu()" class="btn-clear text-white brand-logo" type="button">
-			<span>Glasmmy</span>
+<div *ngIf="toggleMenu" class="dashboard-nav mobile-show" style="z-index: 100">
+	<header (click)="onToggleMenu()">
+		<button  class="btn-clear text-white brand-logo" type="button">
+			<img alt="Logo de Glasmmy" src="/assets/img/Logo-V2-Glasmmy-Blanco.png" class="w-100 h-100 mt-n1" />
+		</button>
+		<button  class="btn-clear text-white menu-toggle h-100" type="button"  style="margin-top: -10px;">
+			<ng-icon class="m-auto h-100" name="matKeyboardDoubleArrowLeft" [size]="isMobile() ? '40': '25'"></ng-icon>
 		</button>
 	</header>
 	<nav class="dashboard-nav-list">
@@ -12,10 +14,12 @@
 		<button class="btn-clear text-white dashboard-nav-item active" type="button">
 			Dashboard
 		</button>
-		<button class="btn-clear text-white dashboard-nav-item" type="button"><i class="fas fa-cogs"></i> Settings</button>
+		<button class="btn-clear text-white dashboard-nav-item" type="button">
+			<i class="fas fa-cogs"></i> Settings
+		</button>
 		<div class="nav-item-divider"></div>
-		<button (click)="logout()" class="btn-clear text-white dashboard-nav-item" type="button"><i
-			class="fas fa-sign-out-alt"></i> Logout
+		<button (click)="logout()" class="btn-clear text-white dashboard-nav-item" type="button">
+			<i class="fas fa-sign-out-alt"></i> Logout
 		</button>
 	</nav>
 </div>

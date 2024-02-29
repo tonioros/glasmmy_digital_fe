@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.formGroup.valid) {
     this.isLoading = true;
     const accessToken = this.formGroup.value.userAccessToken;
     this.authService.login(accessToken)
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           this.router.navigate(['/us/dashboard']);
         }, error: err => {
+          console.log('err', err)
           this.errorMessage = err.error.message;
           this.isLoading = false;
           setTimeout(() => this.errorMessage = "", 8000);
@@ -42,5 +44,6 @@ export class LoginComponent implements OnInit {
     /*// this.newText = this.encryptService.decrypt(accessToken);
     this.newText = this.encryptService.encrypt(accessToken);
     console.log('this.newText', this.newText);*/
+    }
   }
 }

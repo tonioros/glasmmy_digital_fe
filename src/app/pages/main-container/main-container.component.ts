@@ -7,7 +7,6 @@ import {AuthService} from "../../services";
   styleUrl: './main-container.component.scss'
 })
 export class MainContainerComponent implements OnInit {
-
   toggleMenu = false;
   userName: string = '';
 
@@ -20,5 +19,7 @@ export class MainContainerComponent implements OnInit {
 
   onOpenMenu() {
     this.toggleMenu = !this.toggleMenu
+    console.log('this.toggleMenu', this.toggleMenu);
+
   }
 }
