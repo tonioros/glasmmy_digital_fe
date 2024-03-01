@@ -23,4 +23,7 @@ export class ApiService {
     return this.httpClient.get<InvitacionModelResponse[]>(`${this.API_BASE_URL}/invitadosYConfirmados`);
   }
 
+  public addInvitado(params: any) {
+    return this.httpClient.post<string>(`${this.API_BASE_URL}/invitados`, params);
+  }
 }

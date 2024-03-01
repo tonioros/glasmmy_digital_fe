@@ -1,1 +1,51 @@
-<p>add-invitado works!</p>
+<div class="container-lg">
+	<div class="row">
+		<div class="col-12 col-md-10 col-xl-8 mx-lg-3 pt-lg-3 pb-lg-5 px-md-4 px-lg-5 bg-light border-3">
+			<img class="add-attendee " src="./assets/img/add-attendee.png"/>
+			<h2 class="mt-3">Agrega una nueva invitación</h2>
+			<h6 class="text-secondary my-3 fw-semibold mx-1">Agrega un nuevo integrante a tu lista de invitados, recuerda que
+				puedes agregar despues el nombre</h6>
+			<form [formGroup]="fg" class="row bg-light border-3">
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="nombre">Nombre:</label>
+					<input class="form-control" id="nombre" name="nombre" formControlName="nombre" placeholder="" type="text"/>
+				</div>
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="cantidad_invitados">Cantidad de invitados:</label>
+					<input
+						[class.is-invalid]="isValidValue('cantidad_invitados')"
+						class="form-control my-3" formControlName="cantidad_invitados"
+						id="cantidad_invitados"
+						name="cantidad_invitados" type="number"/>
+					<span *ngIf="isValidValue('cantidad_invitados')"
+					      class="alert alert-danger py-1"
+					      role="alert">Ingresar cuantos invitados seran esta invitacion</span>
+				</div>
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="mesa_asignada">Mesa asignada:</label>
+					<input
+						[class.is-invalid]="isValidValue('mesa_asignada')"
+						class="form-control my-3" formControlName="mesa_asignada"
+						id="mesa_asignada"
+						name="mesa_asignada" type="number"/>
+					<span *ngIf="isValidValue('mesa_asignada')"
+					      class="alert alert-danger py-1"
+					      role="alert">Ingresar la mesa asignada para esta invitacion</span>
+				</div>
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="fecha_limite_confirmo">Fecha limite de confirmacion:</label>
+					<input
+						[class.is-invalid]="isValidValue('fecha_limite_confirmo')"
+						[min]="dateFormatter.format(dateNow)"
+						class="form-control my-3"
+						formControlName="fecha_limite_confirmo"
+						id="fecha_limite_confirmo"
+						name="fecha_limite_confirmo" type="date"/>
+				</div>
+				<div class="my-4 col-md-4 col-xl-3 offset-md-8 offset-xl-9">
+					<button (click)="onSubmit()" class="btn btn-primary w-100" type="submit">+ Agregar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

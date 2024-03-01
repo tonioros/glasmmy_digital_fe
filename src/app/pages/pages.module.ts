@@ -12,11 +12,12 @@ import {
   matKeyboardDoubleArrowLeft,
   matMenu
 } from "@ng-icons/material-icons/baseline"
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {DashboardComponent} from "./main-container/dashboard/dashboard.component";
 import {AgGridAngular} from "ag-grid-angular";
 import {MainContainerComponent} from "./main-container/main-container.component";
 import {MenuComponent} from "./menu/menu.component";
+import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {MenuComponent} from "./menu/menu.component";
     LandingComponent,
     MainContainerComponent,
     MenuComponent,
+    AddInvitadoComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import {MenuComponent} from "./menu/menu.component";
     }),
     AgGridAngular,
     RouterOutlet,
+    RouterLinkActive,
   ]
 })
 export class PagesModule { }

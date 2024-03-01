@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   activeFilter: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO";
 
   // Row Data: The data to be displayed.
-  allData: InvitacionModelResponse[] = [];
-  rowData: InvitacionModelResponse[] = [];
+  allData?: InvitacionModelResponse;
+  rowData?: InvitacionModelResponse = {} as any;
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
     {
@@ -59,21 +59,22 @@ export class DashboardComponent implements OnInit {
 
   onFilterChange(filterSelected: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO") {
     this.activeFilter = filterSelected;
-    this.rowData = this.execFilters();
+    // @ts-ignore
+    this.rowData.invitados = this.execFilters();
   }
 
   private loadInvitaciones() {
     this.apiServ.invitacionesYConfirmaciones().subscribe({
       next: value => {
-        this.allData = value;
-        this.rowData = value;
+        this.allData = value[0];
+        this.rowData = value[0];
         this.loadTotales();
       }
     })
   }
 
   private execFilters(filter = this.activeFilter) {
-    return this.allData.filter(v => {
+    return this.allData?.invitados.filter(v => {
       if (filter == "CANC") {
         return (v.confirmado == 0) // Cancelo
       } else if (filter == "CONF") {
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
       } else {
         return v;
       }
-    })
+    }) || [];
   }
 
   private async loadTotales() {

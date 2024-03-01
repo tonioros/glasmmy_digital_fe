@@ -55,11 +55,11 @@
 						<h4 class="text-secondary">Aca puedes administrar tus invitaciones</h4>
 						<p class="text-secondary">Agrega, cambia, asigna invitados, revisa quien confirmo y quien falta</p>
 					</div>
-					<button class="btn col col-md-3 col-xl-2 m-2 btn-primary" type="button">+ Agregar Invitacion</button>
+					<a [routerLink]="'../agregar-inv/' + rowData?.id" class="btn col col-md-3 col-xl-2 m-2 btn-primary">+ Agregar Invitacion</a>
 				</div>
 				<ag-grid-angular
 					[columnDefs]="colDefs"
-					[rowData]="rowData"
+					[rowData]="rowData?.invitados"
 					class="ag-theme-quartz"
 					style="height: 400px;">
 				</ag-grid-angular>

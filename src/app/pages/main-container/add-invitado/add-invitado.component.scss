@@ -1,0 +1,15 @@
+.add-attendee {
+  width: 70%;
+  margin: auto;
+  display: block;
+}
+@media (min-width: 768px) {
+  .add-attendee {
+    width: 30%;
+    position: absolute;
+    top: 20%;
+    right: 14%;
+  }
+}
+
+

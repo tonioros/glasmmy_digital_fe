@@ -19,7 +19,5 @@ export class MainContainerComponent implements OnInit {
 
   onOpenMenu() {
     this.toggleMenu = !this.toggleMenu
-    console.log('this.toggleMenu', this.toggleMenu);
-
   }
 }
