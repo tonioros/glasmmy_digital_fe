@@ -1,25 +1,31 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {catchError, Observable, of} from "rxjs";
-import {inject} from "@angular/core";
+import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {catchError} from "rxjs";
+import {Injectable} from "@angular/core";
 import {AuthService} from "../services";
+import {ToastrService} from "ngx-toastr";
 
+@Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  private authService?: AuthService;
+  constructor(private authService: AuthService, private toast: ToastrService) {
 
-  constructor() {
-    this.authService = inject(AuthService);
   }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
     return next.handle(request)
       .pipe(
         catchError((e) => {
-          console.log(e.status == 401 && this.authService?.isAuthorized())
           if (e.status == 401 && this.authService?.isAuthorized()) {
             // Se invalido el Token de acceso
             this.authService?.logout();
+            this.toast.info("La sesion ha finalizado, vuelve a iniciar sesion");
+          } else if (e.status == 500) {
+            this.toast.error("No hemos podido conectar al servidor: " + e.error.message,
+              "Error de conexion");
+          } else if (e.status == 0) {
+            this.toast.error("No hemos podido conectar al servidor, revisa tu conexion de Internet o contactate con Servicio al Cliente",
+              "Opss, algo salio mal");
           }
-          return of(e);
+          throw e;
         }));
   }
 }

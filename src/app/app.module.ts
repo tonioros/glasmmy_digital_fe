@@ -9,6 +9,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./app.routes";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {ErrorHandlerInterceptor} from "./interceptor/error-handler.interceptor";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import {ErrorHandlerInterceptor} from "./interceptor/error-handler.interceptor";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     LocalStorageService,

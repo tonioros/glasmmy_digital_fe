@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   activeFilter: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO";
 
   // Row Data: The data to be displayed.
-  allData?: InvitacionModelResponse;
+  allData?: InvitacionModelResponse = {} as any;
   rowData?: InvitacionModelResponse = {} as any;
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
@@ -60,21 +60,22 @@ export class DashboardComponent implements OnInit {
   onFilterChange(filterSelected: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO") {
     this.activeFilter = filterSelected;
     // @ts-ignore
-    this.rowData.invitados = this.execFilters();
+    this.rowData.invitados = this.execFilters()  || [];
   }
 
   private loadInvitaciones() {
     this.apiServ.invitacionesYConfirmaciones().subscribe({
       next: value => {
         this.allData = value[0];
-        this.rowData = value[0];
+        this.rowData = JSON.parse(JSON.stringify(value))[0];
+        console.log(this.allData, this.rowData);
         this.loadTotales();
       }
     })
   }
 
   private execFilters(filter = this.activeFilter) {
-    return this.allData?.invitados.filter(v => {
+    return this.allData?.invitados?.filter(v => {
       if (filter == "CANC") {
         return (v.confirmado == 0) // Cancelo
       } else if (filter == "CONF") {
@@ -84,13 +85,13 @@ export class DashboardComponent implements OnInit {
       } else {
         return v;
       }
-    }) || [];
+    });
   }
 
   private async loadTotales() {
-    this.totalTodos = this.execFilters("TO").length;
-    this.totalConfirmados = this.execFilters("CONF").length;
-    this.totalPendientes = this.execFilters("PEND").length;
-    this.totalCancelados = this.execFilters("CANC").length;
+    this.totalTodos = this.execFilters("TO")?.length;
+    this.totalConfirmados = this.execFilters("CONF")?.length;
+    this.totalPendientes = this.execFilters("PEND")?.length;
+    this.totalCancelados = this.execFilters("CANC")?.length;
   }
 }

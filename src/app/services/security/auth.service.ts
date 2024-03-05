@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {UserActiveModelLocal} from "../../models/user-active.model-local";
 import {Constants} from "../../models/constants";
-import {map} from "rxjs";
+import {catchError, map} from "rxjs";
 import {EncryptService} from "./encrypt.service";
 import {ApiService} from "../api/api.service";
 import {LocalStorageService} from "../local-storage/local-storage.service";
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
 import {dateDiffInDays} from "../../utils/dateDiffInDays";
 
 @Injectable({providedIn: "root"})
@@ -14,7 +14,7 @@ export class AuthService {
     private _lastDateLogin?: Date;
 
     constructor(private apiServ: ApiService, private localStorageService: LocalStorageService,
-                private encryptServ: EncryptService) {
+                private encryptServ: EncryptService, private router: Router) {
         this.loadUser();
     }
 
@@ -38,7 +38,11 @@ export class AuthService {
                     this._user = resp.user
                     this.localStorageService.save(Constants.LS_USER, JSON.stringify(resp.user));
                     this.localStorageService.save(Constants.LS_API_TOKEN, resp.user.api_token);
-                }
+                },
+              catchError(err => {
+                  console.log(err);
+                  return err;
+              })
             ));
     }
 
@@ -62,5 +66,6 @@ export class AuthService {
         this._user = undefined;
         this.localStorageService.remove(Constants.LS_API_TOKEN);
         this.localStorageService.remove(Constants.LS_USER);
+        this.router.navigate(['/'])
     }
 }

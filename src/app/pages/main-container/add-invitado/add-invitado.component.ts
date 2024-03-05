@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../../services";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-add-invitado',
@@ -15,7 +16,9 @@ export class AddInvitadoComponent implements OnInit {
   dateNow = new Date();
   private invitacionId?: number;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private apiService: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute,
+              private apiService: ApiService, private router: Router,
+              private toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -35,11 +38,14 @@ export class AddInvitadoComponent implements OnInit {
         .subscribe({
           next: value => {
             if (!isNaN(parseInt(value))) {
+              this.toast.success("Invitacion agregada", "¡Listo!"
+              );
               this.router.navigate(["/us/dashboard"]);
             }
           },
           error: error => {
-            console.error('error', error);
+            this.toast.error("Opss, algo salio mal", "Tuvimos un inconveniente: " + error.errors);
+            console.error(error);
           }
         });
     } else {
