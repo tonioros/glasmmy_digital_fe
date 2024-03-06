@@ -4,7 +4,8 @@
 		<div class="row mt-1 mt-md-3">
 			<h4 class="text-secondary mb-3">Revisa tus diferentes invitaciones</h4>
 			<div class="col-6 col-lg-3 col-xl-2">
-				<div (click)="onFilterChange('TO')" [ngClass]="{'shadow border': activeFilter ==  'TO'}"
+				<div (click)="onFilterChange(EstadosInvitacion.TODOS)"
+				     [ngClass]="{'shadow border': activeFilter ==  EstadosInvitacion.TODOS}"
 				     class="card p-1 clickable p-md-2 my-2 m-md-0 h-100 todas-card">
 					<div class="card-img-top px-2 py-3">
 						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/todos-inv.png">
@@ -15,7 +16,8 @@
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 col-xl-2">
-				<div (click)="onFilterChange('CONF')" [ngClass]="{'shadow border': activeFilter ==  'CONF'}"
+				<div (click)="onFilterChange(EstadosInvitacion.CONFIRMADO)"
+				     [ngClass]="{'shadow border': activeFilter ==  EstadosInvitacion.CONFIRMADO}"
 				     class="card p-1 clickable p-md-2 my-2 m-md-0 h-100 confirm-card">
 					<div class="card-img-top px-1 py-4">
 						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/confirmed.png">
@@ -26,7 +28,8 @@
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 col-xl-2 mt-3 mt-md-0">
-				<div (click)="onFilterChange('PEND')" [ngClass]="{'shadow border': activeFilter ==  'PEND'}"
+				<div (click)="onFilterChange(EstadosInvitacion.PENDIENTE)"
+				     [ngClass]="{'shadow border': activeFilter ==  EstadosInvitacion.PENDIENTE}"
 				     class="card p-1 clickable p-md-2 my-2 pending-card m-md-0 h-100">
 					<div class="card-img-top p-3">
 						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/pending.png">
@@ -37,7 +40,8 @@
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 col-xl-2 mt-3 mt-md-0">
-				<div (click)="onFilterChange('CANC')" [ngClass]="{'shadow border': activeFilter ==  'CANC'}"
+				<div (click)="onFilterChange(EstadosInvitacion.CANCELADO)"
+				     [ngClass]="{'shadow border': activeFilter ==  EstadosInvitacion.CANCELADO}"
 				     class="card p-1 clickable p-md-2 my-2 rejected-card m-md-0 h-100">
 					<div class="card-img-top p-3">
 						<img alt="confirmed icon" class="w-100 m-auto" src="/assets/img/rejected.png">
@@ -51,13 +55,18 @@
 		<div class="row mt-4">
 			<div class="col-12 my-3">
 				<div class="justify-content-between row">
-					<div class="col">
+					<div class="col-12 col-lg-7">
 						<h4 class="text-secondary">Aca puedes administrar tus invitaciones</h4>
 						<p class="text-secondary">Agrega, cambia, asigna invitados, revisa quien confirmo y quien falta</p>
 					</div>
-					<a [routerLink]="'../agregar-inv/' + rowData?.id" class="btn col col-md-3 col-xl-2 m-2 btn-primary">+ Agregar Invitacion</a>
+					<button (click)="exportInfo()" class="btn col-5 col-lg-2 m-1 h-75 btn-success" type="button">Exportar a Excel
+					</button>
+					<a [routerLink]="'../agregar-inv/' + rowData?.id" class="text-center align-content-center align-items-center
+					 btn col-5 col-lg-2 m-1 h-75 btn-primary">+ Agregar Invitacion</a>
 				</div>
 				<ag-grid-angular
+					#table
+					(sortChanged)="onSortChanged($event)"
 					[columnDefs]="colDefs"
 					[rowData]="rowData?.invitados"
 					class="ag-theme-quartz"

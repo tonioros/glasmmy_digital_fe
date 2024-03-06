@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ColDef} from 'ag-grid-community';
 import {ApiService} from "../../../services";
 import {InvitacionModelResponse} from "../../../models/invitacion.model-response";
+import {EstadosInvitacion} from "../../../models/constants";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +14,16 @@ export class DashboardComponent implements OnInit {
   totalConfirmados?: number;
   totalPendientes?: number;
   totalCancelados?: number;
-  activeFilter: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO";
+  activeFilter: EstadosInvitacion = EstadosInvitacion.TODOS;
 
   // Row Data: The data to be displayed.
   allData?: InvitacionModelResponse = {} as any;
   rowData?: InvitacionModelResponse = {} as any;
+  sortColumns?: {
+    column: string,
+    sort: string
+  }[];
+
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
     {
@@ -49,6 +55,7 @@ export class DashboardComponent implements OnInit {
         p.value || '--'
     },
   ];
+  protected readonly EstadosInvitacion = EstadosInvitacion;
 
   constructor(private apiServ: ApiService) {
   }
@@ -57,30 +64,56 @@ export class DashboardComponent implements OnInit {
     this.loadInvitaciones();
   }
 
-  onFilterChange(filterSelected: 'TO' | 'CONF' | 'PEND' | 'CANC' = "TO") {
-    this.activeFilter = filterSelected;
-    // @ts-ignore
-    this.rowData.invitados = this.execFilters()  || [];
-  }
-
   private loadInvitaciones() {
     this.apiServ.invitacionesYConfirmaciones().subscribe({
       next: value => {
         this.allData = value[0];
         this.rowData = JSON.parse(JSON.stringify(value))[0];
-        console.log(this.allData, this.rowData);
         this.loadTotales();
       }
     })
   }
 
+  onFilterChange(filterSelected: EstadosInvitacion = EstadosInvitacion.TODOS) {
+    this.activeFilter = filterSelected;
+    // @ts-ignore
+    this.rowData.invitados = this.execFilters() || [];
+  }
+
+  onSortChanged($event: any) {
+    // @ts-ignore
+    this.sortColumns = Array.from($event.columns).map((value: any) => {
+      return (value.sort) ? {
+        column: value.colId,
+        sort: value.sort
+      } : undefined;
+    });
+  }
+
+  exportInfo() {
+    const filters: any = {
+      invitacionId: this.rowData?.id
+    };
+    if (this.activeFilter != EstadosInvitacion.TODOS) {
+      filters.estado = this.activeFilter;
+    }
+    this.apiServ.downloadExportInvitados(filters, this.sortColumns || []).subscribe(data => {
+      const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      const downloadURL = window.URL.createObjectURL(data);
+      const link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = "invitados.xlsx";
+      link.click();
+    })
+  }
+
   private execFilters(filter = this.activeFilter) {
     return this.allData?.invitados?.filter(v => {
-      if (filter == "CANC") {
+      if (filter == EstadosInvitacion.CANCELADO) {
         return (v.confirmado == 0) // Cancelo
-      } else if (filter == "CONF") {
+      } else if (filter == EstadosInvitacion.CONFIRMADO) {
         return (v.confirmado == 1)  // Confirmo
-      } else if (filter == "PEND") {
+      } else if (filter == EstadosInvitacion.PENDIENTE) {
         return (v.confirmado == null)  // Null -> esta pendiente
       } else {
         return v;
@@ -89,9 +122,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private async loadTotales() {
-    this.totalTodos = this.execFilters("TO")?.length;
-    this.totalConfirmados = this.execFilters("CONF")?.length;
-    this.totalPendientes = this.execFilters("PEND")?.length;
-    this.totalCancelados = this.execFilters("CANC")?.length;
+    this.totalTodos = this.execFilters(EstadosInvitacion.TODOS)?.length;
+    this.totalConfirmados = this.execFilters(EstadosInvitacion.CONFIRMADO)?.length;
+    this.totalPendientes = this.execFilters(EstadosInvitacion.PENDIENTE)?.length;
+    this.totalCancelados = this.execFilters(EstadosInvitacion.CANCELADO)?.length;
   }
 }

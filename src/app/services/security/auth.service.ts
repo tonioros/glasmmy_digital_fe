@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {UserActiveModelLocal} from "../../models/user-active.model-local";
-import {Constants} from "../../models/constants";
+import {LocalStorageKeyNames} from "../../models/constants";
 import {catchError, map} from "rxjs";
 import {EncryptService} from "./encrypt.service";
 import {ApiService} from "../api/api.service";
@@ -19,7 +19,7 @@ export class AuthService {
     }
 
     private loadUser() {
-        const userTemp = this.localStorageService.getData(Constants.LS_USER);
+        const userTemp = this.localStorageService.getData(LocalStorageKeyNames.LS_USER);
         if (!!userTemp) {
             this._user = JSON.parse(userTemp);
             const date = this._user?.last_login.split(" ")[0].split('-') as string[];
@@ -36,8 +36,8 @@ export class AuthService {
         return this.apiServ.login(this.encryptServ.encryptServer(userAccess))
             .pipe(map(resp => {
                     this._user = resp.user
-                    this.localStorageService.save(Constants.LS_USER, JSON.stringify(resp.user));
-                    this.localStorageService.save(Constants.LS_API_TOKEN, resp.user.api_token);
+                    this.localStorageService.save(LocalStorageKeyNames.LS_USER, JSON.stringify(resp.user));
+                    this.localStorageService.save(LocalStorageKeyNames.LS_API_TOKEN, resp.user.api_token);
                 },
               catchError(err => {
                   console.log(err);
@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     public apiToken() {
-        return this.localStorageService.getData(Constants.LS_API_TOKEN);
+        return this.localStorageService.getData(LocalStorageKeyNames.LS_API_TOKEN);
     }
     public isAuthorized() {
         return (!!this._user && !!this._user.api_token && this._user.api_token.length > 10);
@@ -64,8 +64,8 @@ export class AuthService {
 
     public logout() {
         this._user = undefined;
-        this.localStorageService.remove(Constants.LS_API_TOKEN);
-        this.localStorageService.remove(Constants.LS_USER);
+        this.localStorageService.remove(LocalStorageKeyNames.LS_API_TOKEN);
+        this.localStorageService.remove(LocalStorageKeyNames.LS_USER);
         this.router.navigate(['/'])
     }
 }

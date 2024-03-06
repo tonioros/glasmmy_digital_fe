@@ -26,4 +26,12 @@ export class ApiService {
   public addInvitado(params: any) {
     return this.httpClient.post<string>(`${this.API_BASE_URL}/invitados`, params);
   }
+
+  public downloadExportInvitados(filters: any, sort: any[]) {
+    return this.httpClient.post<Blob>(`${this.API_BASE_URL}/invitadosExportar`, {
+      filters, sort
+    }, {
+      responseType: 'blob' as 'json'
+    });
+  }
 }
