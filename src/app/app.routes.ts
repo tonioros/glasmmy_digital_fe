@@ -6,10 +6,12 @@ import {CanActivateAuthGuard} from "./services/security/guard-route";
 import {NgModule} from "@angular/core";
 import {MainContainerComponent} from "./pages/main-container/main-container.component";
 import {AddInvitadoComponent} from "./pages/main-container/add-invitado/add-invitado.component";
+import {ConfirmacionFormComponent} from "./pages/confirmacion-form/confirmacion-form.component";
 
 export const routes: Routes = [
     {path: '', component: LandingComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'confirmacion-form/:access_token', component: ConfirmacionFormComponent},
     {
         path: 'us', component: MainContainerComponent, canActivate: [CanActivateAuthGuard],
         children: [

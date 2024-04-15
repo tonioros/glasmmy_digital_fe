@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {LoginModelResponse} from "../../models/login.model-response";
 import {InvitacionModelResponse} from "../../models/invitacion.model-response";
+import {InvitadoModelRespose} from "../../models/invitado.model-respose";
 
 @Injectable({providedIn: "root"})
 export class ApiService {
@@ -33,5 +34,14 @@ export class ApiService {
     }, {
       responseType: 'blob' as 'json'
     });
+  }
+
+  public confirmar(params: any) {
+    return this.httpClient.post<number>(`${this.API_BASE_URL}/confirmacion`, params);
+  }
+
+
+  public getInvitadoYConfirmacion(access_token: string) {
+    return this.httpClient.get<InvitadoModelRespose>(`${this.API_BASE_URL}/invitados/${access_token}`)
   }
 }

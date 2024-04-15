@@ -18,6 +18,8 @@ import {AgGridAngular} from "ag-grid-angular";
 import {MainContainerComponent} from "./main-container/main-container.component";
 import {MenuComponent} from "./menu/menu.component";
 import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.component";
+import {ConfirmacionFormComponent} from "./confirmacion-form/confirmacion-form.component";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.c
     MainContainerComponent,
     MenuComponent,
     AddInvitadoComponent,
+    ConfirmacionFormComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.c
     AgGridAngular,
     RouterOutlet,
     RouterLinkActive,
+    NgxSkeletonLoaderModule,
   ]
 })
 export class PagesModule { }

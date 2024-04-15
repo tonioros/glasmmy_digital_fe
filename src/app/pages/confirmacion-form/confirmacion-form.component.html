@@ -1,0 +1,63 @@
+<div class="container-fluid form-confirmacion my-3">
+	<div class="row">
+		<ngx-skeleton-loader *ngIf="!invitacionConfimacion" appearance="line" count="8"/>
+		<div *ngIf="invitacionConfimacion" [formGroup]="formGroup">
+			<h2 *ngIf="!invitacionConfimacion.confirmacion" class="form-confirmacion-title fw-bold mb-3">¿Deseas confirmar tu
+				asistencia?</h2>
+			<h2 *ngIf="invitacionConfimacion.confirmacion" class="form-confirmacion-title fw-bold mb-3">¡Ya has confirmado tu
+				asistencia!</h2>
+			<h3 class="form-confirmacion-subtitle fw-medium">Aca tienes algunos datos del evento para que lo recuerdes</h3>
+
+			<div *ngIf="!!invitacionConfimacion?.mesa_asignada" class="col-12 my-3">
+				<h4 class="form-confirmacion-text-mesa_asignada">Fecha del
+					evento: {{ invitacionConfimacion.invitacion.fecha_evento | date:"dd/MM/yyyy" }}</h4>
+			</div>
+
+			<div *ngIf="!!invitacionConfimacion?.mesa_asignada" class="col-12 my-3">
+				<h4 class="form-confirmacion-text-mesa_asignada">Mesa
+					asignada: {{ invitacionConfimacion.mesa_asignada || "" }}</h4>
+			</div>
+
+			<div *ngIf="!invitacionConfimacion?.nombre" class="col-12">
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="nombre">Nombre:</label>
+					<input class="form-control form-confirmacion-input-nombre" formControlName="nombre" id="nombre"
+					       name="nombre"
+					       placeholder="" type="text"/>
+				</div>
+			</div>
+			<div *ngIf="!!invitacionConfimacion?.nombre" class="col-12 my-3">
+				<h4 class="form-confirmacion-text-nombre">Nombre: {{ invitacionConfimacion.nombre || "" }}</h4>
+			</div>
+			<div *ngIf="invitacionConfimacion.confirmacion" class="col-12 my-3">
+				<h4 class="form-confirmacion-text-nombre">Total de
+					invitados: {{ invitacionConfimacion.confirmacion.total_personas_conf || "" }}</h4>
+			</div>
+			<div *ngIf="!invitacionConfimacion.confirmacion" class="col-12">
+				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
+					<label class="form-label" for="cant_asistir">Cantidad de asistentes:</label>
+					<input
+						class="form-control form-confirmacion-input-cant_asistir"
+						formControlName="cant_asistir" id="cant_asistir" name="cant_asistir"
+						type="number"/>
+					<div *ngIf="!formGroup.get('cant_asistir')?.valid"
+					     class="alert alert-danger mt-3"
+					     role="alert">
+						<p *ngIf="validators('cant_asistir').required || validators('cant_asistir').min">
+							Debes de ingresar al menos un invitado</p>
+						<p *ngIf="validators('cant_asistir').max">Puedes confirmar hasta {{ validators('cant_asistir').max.max }}
+							{{ validators('cant_asistir').max.max > 1 ? 'invitados' : 'invitado' }}</p>
+					</div>
+				</div>
+			</div>
+			<h4 *ngIf="invitacionConfimacion.confirmacion" class="form-confirmacion-text-teesperamos">¡Te esperamos!</h4>
+			<div *ngIf="!invitacionConfimacion.confirmacion" class="offset-md-9 offset-xl-5 col-md-2 col-xl-2 col-12 my-3">
+				<button (click)="saveConfirmacion()" *ngIf="!isLoading" class="btn btn-success w-100 form-confirmacion-btn-submit" type="button">Confirmar
+				</button>
+				<ng-icon *ngIf="isLoading" [size]="'25px'" class="rotate" name="matAutorenew"
+				         style="width: 25px;height: 30px;"></ng-icon>
+			</div>
+		</div>
+
+	</div>
+</div>
