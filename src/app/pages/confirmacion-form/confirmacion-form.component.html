@@ -1,4 +1,4 @@
-<div class="container-fluid form-confirmacion my-3">
+<div class="container-fluid form-confirmacion py-4">
 	<div class="row">
 		<ngx-skeleton-loader *ngIf="!invitacionConfimacion" appearance="line" count="8"/>
 		<div *ngIf="invitacionConfimacion" [formGroup]="formGroup">
@@ -18,7 +18,7 @@
 					asignada: {{ invitacionConfimacion.mesa_asignada || "" }}</h4>
 			</div>
 
-			<div *ngIf="!invitacionConfimacion?.nombre" class="col-12">
+			<div *ngIf="!invitacionConfimacion.confirmacion && !invitacionConfimacion?.nombre" class="col-12">
 				<div class="my-2 col-md-7 col-xl-6 me-xl-5">
 					<label class="form-label" for="nombre">Nombre:</label>
 					<input class="form-control form-confirmacion-input-nombre" formControlName="nombre" id="nombre"
@@ -49,6 +49,39 @@
 							{{ validators('cant_asistir').max.max > 1 ? 'invitados' : 'invitado' }}</p>
 					</div>
 				</div>
+			</div>
+			<div *ngIf="!invitacionConfimacion.confirmacion" class="col-12 mt-4 mb-3 form-check">
+				<input class="form-check-input" formControlName="checkBAgregarNombres" id="flexCheckDefault" type="checkbox">
+				<label class="form-check-label h5" for="flexCheckDefault">
+					¿Deseas agregar el nombre de tus acompañantes?
+				</label>
+			</div>
+			<div *ngIf="formGroup.get('checkBAgregarNombres')?.value">
+				<div *ngFor="let acompanante of acompanantesList; let i = index " class="col-12 col-md-7 row my-2">
+					<div class="col-auto"><label [for]="acompanante" class="form-label">Invitado #{{ i + 1 }}</label></div>
+					<div class="col-7">
+						<input [formControlName]="acompanante" [name]="acompanante"
+						       class="form-control form-confirmacion-input-acompanante"
+						       placeholder="Nombre del acompañante"/>
+					</div>
+					<div class="col-auto">
+						<button (click)="removeAcompanante()" class="btn btn-warning fw-bold me-1" type="button">
+							-
+						</button>
+						<button (click)="addAcompanante(i + 2)"
+						        *ngIf="(i + 1 == acompanantesList.length) && (i + 1) < this.cantAsistir"
+						        class="btn btn-success fw-bold " type="button">+
+						</button>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="invitacionConfimacion.confirmacion" class="col-12 col-md-7 my-2">
+				<h5>Acomapañantes agregados:</h5>
+				<ul class="list-group list-group-flush">
+					<li *ngFor="let acompanantes of invitacionConfimacion.confirmacion?.acompanantes?.split(',')"
+					    class="list-group-item form-confirmacion-text-acompanantes h6">- {{ acompanantes }}
+					</li>
+				</ul>
 			</div>
 			<h4 *ngIf="invitacionConfimacion.confirmacion" class="form-confirmacion-text-teesperamos">¡Te esperamos!</h4>
 			<div *ngIf="!invitacionConfimacion.confirmacion" class="offset-md-9 offset-xl-5 col-md-2 col-xl-2 col-12 my-3">

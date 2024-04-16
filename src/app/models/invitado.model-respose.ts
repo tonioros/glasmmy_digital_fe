@@ -10,6 +10,7 @@ export interface InvitadoModelRespose {
   confirmacion?: {
     confirmado: number;
     created_at: string;
+    acompanantes?: string;
     fecha_confirmacion: string;
     id: number;
     invitado_id: number;
