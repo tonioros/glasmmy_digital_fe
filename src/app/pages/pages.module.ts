@@ -8,9 +8,10 @@ import {NgIconsModule} from "@ng-icons/core";
 import {
   matAutorenew,
   matClose,
+  matContentCopy,
   matDoubleArrow,
   matKeyboardDoubleArrowLeft,
-  matMenu
+  matMenu,
 } from "@ng-icons/material-icons/baseline"
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {DashboardComponent} from "./main-container/dashboard/dashboard.component";
@@ -20,6 +21,9 @@ import {MenuComponent} from "./menu/menu.component";
 import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.component";
 import {ConfirmacionFormComponent} from "./confirmacion-form/confirmacion-form.component";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {CellButtonComponent} from "./main-container/cell-button/cell-button.component";
+import {NgDompurifyModule} from "@tinkoff/ng-dompurify";
+import {SafeHTMLPipe} from "../pipes/safe-html.pipe";
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
     MenuComponent,
     AddInvitadoComponent,
     ConfirmacionFormComponent,
+    CellButtonComponent
   ],
   imports: [
     CommonModule,
@@ -42,12 +47,15 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
       matMenu,
       matDoubleArrow,
       matClose,
-      matKeyboardDoubleArrowLeft
+      matKeyboardDoubleArrowLeft,
+      matContentCopy
     }),
     AgGridAngular,
     RouterOutlet,
     RouterLinkActive,
     NgxSkeletonLoaderModule,
+    NgDompurifyModule,
+    SafeHTMLPipe,
   ]
 })
 export class PagesModule { }

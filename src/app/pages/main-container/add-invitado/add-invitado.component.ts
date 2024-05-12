@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../../services";
 import {ToastrService} from "ngx-toastr";
+import {environment} from "../../../../environments/environment";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-add-invitado',
@@ -18,7 +20,8 @@ export class AddInvitadoComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
               private apiService: ApiService, private router: Router,
-              private toast: ToastrService) {
+              private toast: ToastrService, private titleService: Title) {
+    this.titleService.setTitle(environment.APP_NAME + " | Iniciar sesion")
   }
 
   ngOnInit(): void {

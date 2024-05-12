@@ -9,7 +9,6 @@ import {AddInvitadoComponent} from "./pages/main-container/add-invitado/add-invi
 import {ConfirmacionFormComponent} from "./pages/confirmacion-form/confirmacion-form.component";
 
 export const routes: Routes = [
-    {path: '', component: LandingComponent},
     {path: 'login', component: LoginComponent},
     {path: 'confirmacion-form/:access_token', component: ConfirmacionFormComponent},
     {
@@ -19,7 +18,7 @@ export const routes: Routes = [
             {path: 'agregar-inv/:invitacionid', component: AddInvitadoComponent},
         ]
     },
-    {path: '**', component: LandingComponent},  // Wildcard route for a 404 page
+    {path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

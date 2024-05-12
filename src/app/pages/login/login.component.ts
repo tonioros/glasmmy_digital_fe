@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {Title} from "@angular/platform-browser";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,11 @@ export class LoginComponent implements OnInit {
   errorMessage: string = "";
 
   constructor(private fb: FormBuilder, private authService: AuthService,
-              private router: Router) {
+              private router: Router, private titleService:Title) {
     this.formGroup = this.fb.group({
       'userAccessToken': ['', [Validators.required, Validators.minLength(10)]]
     });
+    this.titleService.setTitle(environment.APP_NAME + " | Iniciar sesion")
   }
 
   ngOnInit(): void {

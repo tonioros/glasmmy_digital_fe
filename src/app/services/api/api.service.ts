@@ -44,4 +44,8 @@ export class ApiService {
   public getInvitadoYConfirmacion(access_token: string) {
     return this.httpClient.get<InvitadoModelRespose>(`${this.API_BASE_URL}/invitados/${access_token}`)
   }
+
+  public deleteInvitado(invitadoId: number) {
+    return this.httpClient.delete<boolean>(`${this.API_BASE_URL}/invitados/${invitadoId}`)
+  }
 }

@@ -3,6 +3,10 @@ import {ColDef} from 'ag-grid-community';
 import {ApiService} from "../../../services";
 import {InvitacionModelResponse} from "../../../models/invitacion.model-response";
 import {EstadosInvitacion} from "../../../models/constants";
+import {environment} from "../../../../environments/environment";
+import {Title} from "@angular/platform-browser";
+import {CellButtonComponent, CellButtonParams, CellButtonType} from "../cell-button/cell-button.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-dashboard',
@@ -54,10 +58,43 @@ export class DashboardComponent implements OnInit {
       valueFormatter: p =>
         p.value || '--'
     },
+    {
+      field: "Link de Invitación",
+      cellRendererSelector: (param: any) => (
+        {
+          component: CellButtonComponent,
+          params: {
+            value: {
+              type: CellButtonType.Success,
+              text: "Copiar📋",
+              onClickText: "Copiado!✅",
+              callback: this.copiarURLInvitacion.bind(this),
+              tooltipText: "Copiar el link de la invitacion"
+            } as CellButtonParams
+          }
+        }
+      )
+    },
+    {
+      field: "Borrar Invitado",
+      cellRendererSelector: (param: any) => (
+        {
+          component: CellButtonComponent,
+          params: {
+            value: {
+              type: CellButtonType.Danger,
+              text: "Borrar",
+              callback: this.deleteInvitado.bind(this),
+            } as CellButtonParams
+          }
+        }
+      )
+    }
   ];
   protected readonly EstadosInvitacion = EstadosInvitacion;
 
-  constructor(private apiServ: ApiService) {
+  constructor(private apiServ: ApiService, private titleService: Title, private toast: ToastrService) {
+    this.titleService.setTitle(environment.APP_NAME + " | Inicio")
   }
 
   ngOnInit(): void {
@@ -72,6 +109,20 @@ export class DashboardComponent implements OnInit {
         this.loadTotales();
       }
     })
+  }
+
+  copiarURLInvitacion(accessToken: any) {
+    let url = this.allData?.base_url;
+    url = `${url}?token=${accessToken.access_token}`
+    navigator.clipboard.writeText(url);
+    this.toast.info("Copiado!")
+  }
+
+  deleteInvitado(params: any) {
+    const id = params.id;
+    this.apiServ.deleteInvitado(id).subscribe(_ => {
+      this.loadInvitaciones();
+    });
   }
 
   onFilterChange(filterSelected: EstadosInvitacion = EstadosInvitacion.TODOS) {

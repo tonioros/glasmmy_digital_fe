@@ -28,3 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Como usar el form de Confirmar Asistencia en el iFrame
 
+
+`const searchParams = new URLSearchParams(window.location.search);`
+
+`const token = searchParams.get('token');`

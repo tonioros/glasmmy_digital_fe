@@ -1,6 +1,7 @@
 export interface InvitacionModelResponse {
   "id": number,
   "nombre": string,
+  base_url: string,
   "fecha_evento": string,
   "lugar_evento": string,
   "url_lugar_evento": string,
