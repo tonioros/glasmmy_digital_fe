@@ -65,7 +65,7 @@ export class AddInvitadoComponent implements OnInit {
       "nombre": [""],
       "cantidad_invitados": ["", [Validators.required, Validators.min(1)]],
       "invitacion_id": this.invitacionId,
-      "mesa_asignada": ["", [Validators.required, Validators.min(1)]],
+      "mesa_asignada": ["", [Validators.min(1)]],
       "fecha_limite_confirmo": ["",],
     })
   }

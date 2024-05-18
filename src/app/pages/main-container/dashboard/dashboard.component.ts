@@ -54,7 +54,14 @@ export class DashboardComponent implements OnInit {
         p.value ? new Date(p.value).toLocaleDateString("es-GT") : '--No ha confirmado--'
     },
     {
-      field: "total_personas_conf", headerName: "Total personas confirmadas",
+      field: "total_personas_conf",
+      headerName: "Total personas confirmadas",
+      valueFormatter: p =>
+        p.value || '--'
+    },
+    {
+      field: "acompanantes",
+      headerName: "Acompañantes",
       valueFormatter: p =>
         p.value || '--'
     },

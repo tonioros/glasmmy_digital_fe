@@ -6,11 +6,15 @@ import {CanActivateAuthGuard} from "./services/security/guard-route";
 import {NgModule} from "@angular/core";
 import {MainContainerComponent} from "./pages/main-container/main-container.component";
 import {AddInvitadoComponent} from "./pages/main-container/add-invitado/add-invitado.component";
-import {ConfirmacionFormComponent} from "./pages/confirmacion-form/confirmacion-form.component";
+import {ConfirmacionFormComponent} from "./pages/forms-confirmacion/confirmacion-form/confirmacion-form.component";
+import {
+    ConfirmacionCuadradoComponent
+} from "./pages/forms-confirmacion/confirmacion-cuadrado/confirmacion-cuadrado.component";
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'confirmacion-form/:access_token', component: ConfirmacionFormComponent},
+    {path: 'confirmacion-quad/:access_token', component: ConfirmacionCuadradoComponent},
     {
         path: 'us', component: MainContainerComponent, canActivate: [CanActivateAuthGuard],
         children: [
@@ -18,6 +22,7 @@ export const routes: Routes = [
             {path: 'agregar-inv/:invitacionid', component: AddInvitadoComponent},
         ]
     },
+    {path: '',   redirectTo: '/login', pathMatch: 'full' },
     {path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 @NgModule({

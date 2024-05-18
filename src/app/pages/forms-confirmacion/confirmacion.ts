@@ -1,35 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../services";
-import {ActivatedRoute} from "@angular/router";
-import {InvitadoModelRespose} from "../../models/invitado.model-respose";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ApiService} from "../../services";
+import {InvitadoModelRespose} from "../../models/invitado.model-respose";
 
-@Component({
-  selector: 'app-confirmacion-form',
-  templateUrl: './confirmacion-form.component.html',
-  styleUrl: './confirmacion-form.component.scss'
-})
-export class ConfirmacionFormComponent implements OnInit {
+export abstract class Confirmacion {
   formGroup = new FormGroup({});
-  private accessToken: string = '';
-  constructor(private apiServ: ApiService, private activatedRoute: ActivatedRoute,
-              private fb: FormBuilder) {
+  isLoading = false;
+  protected accessToken: string = '';
+
+  protected constructor(private apiServ: ApiService, private fb: FormBuilder) {
   }
 
-  private _invitacionConfimacion?: InvitadoModelRespose;
-  isLoading = false;
+  protected _invitacionConfimacion?: InvitadoModelRespose;
 
   get invitacionConfimacion() {
     return this._invitacionConfimacion;
   }
 
-  ngOnInit(): void {
-    this.accessToken = this.activatedRoute.snapshot.paramMap.get("access_token") as string;
-    this.loadConfirmacionInfo(this.accessToken)
-  }
-
   get acompanantesList() {
     return Object.keys(this.formGroup.value).filter(value => value.includes("acompanante-"));
+  }
+
+  get cantAsistir() {
+    return this.formGroup.get('cant_asistir')?.value || 0
   }
 
   validators(formControlName: string): any {
@@ -69,11 +61,9 @@ export class ConfirmacionFormComponent implements OnInit {
     } else {
       this.formGroup?.get("nombre")?.markAsTouched();
       this.formGroup?.get("cantidad_invitados")?.markAsTouched();
+      this.isLoading = false
+      console.log('errors', this.formGroup.errors, this.formGroup?.valid)
     }
-  }
-
-  get cantAsistir() {
-    return this.formGroup.get('cant_asistir')?.value || 0
   }
 
   addAcompanante(posicion: number = 1) {
@@ -93,7 +83,7 @@ export class ConfirmacionFormComponent implements OnInit {
     }
   }
 
-  private loadConfirmacionInfo(accessToken: string) {
+  protected loadConfirmacionInfo(accessToken: string) {
     this.apiServ.getInvitadoYConfirmacion(accessToken)
       .subscribe({
         next: invitacion => {
@@ -107,7 +97,7 @@ export class ConfirmacionFormComponent implements OnInit {
       });
   }
 
-  private buildFormGroup() {
+  protected buildFormGroup() {
     const controls: any = {
       "cant_asistir": [this.invitacionConfimacion?.cantidad_invitados, [
         Validators.required,

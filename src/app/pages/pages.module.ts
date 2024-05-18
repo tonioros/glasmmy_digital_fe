@@ -19,11 +19,14 @@ import {AgGridAngular} from "ag-grid-angular";
 import {MainContainerComponent} from "./main-container/main-container.component";
 import {MenuComponent} from "./menu/menu.component";
 import {AddInvitadoComponent} from "./main-container/add-invitado/add-invitado.component";
-import {ConfirmacionFormComponent} from "./confirmacion-form/confirmacion-form.component";
+import {ConfirmacionFormComponent} from "./forms-confirmacion/confirmacion-form/confirmacion-form.component";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {CellButtonComponent} from "./main-container/cell-button/cell-button.component";
 import {NgDompurifyModule} from "@tinkoff/ng-dompurify";
 import {SafeHTMLPipe} from "../pipes/safe-html.pipe";
+import {
+  ConfirmacionCuadradoComponent
+} from "./forms-confirmacion/confirmacion-cuadrado/confirmacion-cuadrado.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import {SafeHTMLPipe} from "../pipes/safe-html.pipe";
     MenuComponent,
     AddInvitadoComponent,
     ConfirmacionFormComponent,
+    ConfirmacionCuadradoComponent,
     CellButtonComponent
   ],
   imports: [
@@ -58,4 +62,5 @@ import {SafeHTMLPipe} from "../pipes/safe-html.pipe";
     SafeHTMLPipe,
   ]
 })
-export class PagesModule { }
+export class PagesModule {
+}

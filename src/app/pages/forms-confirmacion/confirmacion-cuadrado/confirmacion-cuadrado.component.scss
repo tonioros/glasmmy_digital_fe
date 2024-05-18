@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+@font-face {
+  font-family: "Muli";
+  src: url(/assets/fonts/muli/Muli-Regular.ttf) format("ttf");
+}
+
+.text {
+  text-align: center;
+  color: #9B9B9B;
+  font-family: "Cormorant Garamond", Sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.titulo {
+  color: #4D504A;
+  font-family: "Cormorant Garamond", Sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.25em;
+  letter-spacing: 5px;
+}
+
+.elementor-widget:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.elementor-widget-wrap > .elementor-element {
+  width: 100%;
+}
+
+.elementor-widget-image {
+  text-align: center;
+}
+
+.elementor-widget {
+  position: relative;
+}
+
+.input-box {
+  font-family: "Muli", Sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #4D504A;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: rgba(167, 133, 86, 0.38);
+  border-radius: 0px 0px 0px 0px;
+  padding: 15px 15px 15px 15px;
+}
+
+.ck-acompanantes {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #779960;
+}
+
+.ck-acompanantes:checked {
+  background-color: #779960 !important;
+  box-shadow: 0 0 0 .25rem rgba(119, 153, 96, 0.25)
+}
+
+.ck-acompanantes:focus {
+  box-shadow: 0 0 0 .25rem rgba(119, 153, 96, 0.25);
+}
+
+.label-text {
+  color: #9B9B9B;
+  font-family: "Muli", Sans-serif;
+  font-size: 12px;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.error-alert-text {
+  font-family: "Muli", Sans-serif;
+  font-size: 15px;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 300;
+  color: #ff9999;
+  background-color: #FFFFFF;
+}
+
+.btn-inv-danger {
+  border-color: #ff9999;
+}
+
+.btn-inv-success {
+  border-color: #779960;
+}
+.btn-inv-danger:hover {
+  background-color: #ff9999;
+}
+
+.btn-inv-success:hover {
+  background-color: #779960;
+}
+.btn-submit {
+  font-family: "Muli", Sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  background-color: #969c6e;
+  color: #ffffff;
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+  border-color: #969c6e;
+  border-radius: 0px 0px 0px 0px;
+  padding: 20px 70px 20px 70px;
+}
