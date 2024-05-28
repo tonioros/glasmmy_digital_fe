@@ -1,3 +1,6 @@
+<link
+	href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+	rel="stylesheet"/>
 <div class="container-fluid">
 	<div class="row">
 		<ngx-skeleton-loader *ngIf="!invitacionConfimacion" appearance="line" count="8"/>
@@ -15,7 +18,8 @@
 				</div>
 			</div>
 			<p class="text-center text">Recuerda los siguientes detalles importantes</p>
-			<p *ngIf="!!invitacionConfimacion?.invitacion && !!invitacionConfimacion?.invitacion?.fecha_evento" class="text-center text">Fecha del evento:
+			<p *ngIf="!!invitacionConfimacion?.invitacion && !!invitacionConfimacion?.invitacion?.fecha_evento"
+			   class="text-center text">Fecha del evento:
 				<span class="fw-bold">{{ invitacionConfimacion.invitacion.fecha_evento | date:"dd/MM/yyyy" }}
 				</span>
 			</p>

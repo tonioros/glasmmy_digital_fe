@@ -57,7 +57,6 @@ export abstract class Confirmacion {
           console.error(err)
         }
       })
-      console.log(values)
     } else {
       this.formGroup?.get("nombre")?.markAsTouched();
       this.formGroup?.get("cantidad_invitados")?.markAsTouched();

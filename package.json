@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot --optimization --source-map",
+    "build": "ng build --aot --optimization --source-map  --subresource-integrity",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
