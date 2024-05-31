@@ -27,6 +27,7 @@ import {SafeHTMLPipe} from "../pipes/safe-html.pipe";
 import {
   ConfirmacionCuadradoComponent
 } from "./forms-confirmacion/confirmacion-cuadrado/confirmacion-cuadrado.component";
+import {LoginAdminComponent} from "./login-admin/login-admin.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {
     AddInvitadoComponent,
     ConfirmacionFormComponent,
     ConfirmacionCuadradoComponent,
+    LoginAdminComponent,
     CellButtonComponent
   ],
   imports: [

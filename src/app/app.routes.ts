@@ -10,6 +10,7 @@ import {ConfirmacionFormComponent} from "./pages/forms-confirmacion/confirmacion
 import {
     ConfirmacionCuadradoComponent
 } from "./pages/forms-confirmacion/confirmacion-cuadrado/confirmacion-cuadrado.component";
+import {LoginAdminComponent} from "./pages/login-admin/login-admin.component";
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -23,7 +24,7 @@ export const routes: Routes = [
         ]
     },
     {path: '',   redirectTo: '/login', pathMatch: 'full' },
-    {path: '**', redirectTo: '/login', pathMatch: 'full' },
+    {path: 'login-admin', component: LoginAdminComponent},
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

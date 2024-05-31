@@ -20,6 +20,13 @@ export class ApiService {
     });
   }
 
+  public loginAdmin(email: string, pass: string): Observable<LoginModelResponse> {
+    return this.httpClient.post<LoginModelResponse>(`${this.API_BASE_URL}/loginAdmin`, {
+      user: email,
+      password: pass,
+    });
+  }
+
   public invitacionesYConfirmaciones() {
     return this.httpClient.get<InvitacionModelResponse[]>(`${this.API_BASE_URL}/invitadosYConfirmados`);
   }
